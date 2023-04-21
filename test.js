@@ -318,9 +318,6 @@ let empty = (data) => {
     return (toCheck.indexOf(data) >= 0);
 }
 
-if (!$("head style:first-child").html().includes('ESCO Custom Style'))
-    $("head style:first-child").append(style);
-
 let isLogged = sessionStorage.getItem('isLogged');
 
 let redirectUser = () => {
@@ -365,7 +362,13 @@ let check_notification = async() => {
 }
 
 $(document).ready( () => { 
+
+    // append custom css
+    if (!$("head style:first-child").html().includes('ESCO Custom Style'))
+        $("head style:first-child").append(style);
+
     redirectUser();
+
     check_notification()
 } )
 
