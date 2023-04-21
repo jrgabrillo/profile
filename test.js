@@ -1,317 +1,5 @@
 console.log('Loaded ESCO JS');
 
-let style = `
-    .navbar{
-        background: #2490ef !important;
-    }
-
-    #editorjs .widget-control, #editorjs .widget-footer, #editorjs .timestamp{
-        display: none;
-    }
-
-    #body div[data-page-route="Rerouting Links"]{
-        display: none;
-    }
-    
-    
-    /* Job Card Styles */
-
-    div.Inprogress{
-        background: #6cc56f;
-        background-color: #6cc56f;
-    }
-    
-    div.Complete{
-        background: #008000 !important;
-        background-color: #008000 !important;
-    }
-    
-    div.Open{
-        background: #dcdcdc;
-        background-color: #dcdcdc;
-    }
-
-    div.JO-Issue{
-        background: #ffc107;
-        background-color: #ffc107;
-    }
-    
-    div.Overdue{
-        background: #db8585;
-        background-color: #db8585;
-    }   
-    
-    div.Overdue.JO-Issue.Inprogress{
-        background: #ffc107 !important;
-        background-color: #ffc107 !important;
-    }
-    
-    div.Overdue.JO-Issue.Complete{
-        background: #008000 !important;
-        background-color: #008000 !important;
-    }    
-    
-    div.Overdue.JO-Issue{
-        background: #ffc107 !important;
-        background-color: #ffc107 !important;
-    }    
-    
-    input[type=checkbox]:checked {
-        background-size: 100%;
-        background-repeat: no-repeat;
-    }
-    
-    input[type="checkbox"]{
-        background: #fff;
-        transform: scale(1.3);
-    }
-    
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:nth-child(8),
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:nth-child(9),
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:last-child,
-    .frappe-list .result header .list-header-subject div:nth-child(8),
-    .frappe-list .result header .list-header-subject div:nth-child(9),
-    .frappe-list .result header .list-header-subject div:last-child,
-    .list-row-like, .list-liked-by-me{
-        display: none;
-    }
-    
-    .list-row:hover{
-        background-color: unset !important;
-        text-decoration: underline;
-        cursor: pointer;
-    }
-    
-    .layout-side-section,
-    .level-right{
-        display: none;
-    }
-    
-    .list-check-all, .list-liked-by-me, .list-row-like{
-        pointer-events: none;
-        opacity: 0
-    }
-    
-    div[data-page-route="List/Job Card/List"]  div[data-fieldname="operation"], 
-    div[data-page-route="List/Job Card/List"]  div[data-fieldname="name"]{
-        pointer-events: none;
-        display: none !important;
-    }
-    
-    div[data-page-route="List/Job Card/List"] .list-row-container{
-        opacity: 0.75;
-    }
-    
-    .list-row-container.priority{
-        opacity: 1 !important;
-    }
-    
-    .priority-by-production-planner{
-        box-shadow: 10px 0px 0px #06c inset;
-    }
-    
-    @media (max-width: 976px){
-        .container {
-            transform: scale(1)
-        }
-        
-        .page-head .custom-actions{
-            display: unset !important;
-        }
-        
-        .page-head .custom-actions button[data-label="Pause%20Job"], 
-        .page-head .custom-actions button[data-label="Complete%20Job"]{
-            display: none !important;
-        }
-        
-        .page-title .title-area .title-text{
-            // max-width: 300px
-        }
-    }
-    
-    .sidebar-toggle-btn{
-        display: none;
-    }
-    
-    button[data-label="Start%20Job"]{
-        pointer-events: none;
-        opacity: 0.5;
-    }
-    
-    .submit-modal-on .modal.submit-modal, .submit-modal-on .modal-backdrop.show{
-        display: none !important;
-    }
-    
-    @media (min-width: 992px){
-        div[data-page-route="List/Job Card/List"] .menu-btn-group{
-            display: none !important;
-        }
-    }
-    
-    body[data-route="query-report/Capacity Reports"] .datatable div.dt-row div.dt-cell:last-child{
-        display: none;
-    }
-    
-    .page-title .title-area .title-text{
-        max-width: unset !important;
-    }
-
-
-
-
-
-    /* Work Order */
-
-    .datatable .dt-row {
-        height: unset;
-    }
-
-    /* Production Table */
-    .datatable .dt-scrollable{
-        width: unset !important;
-        height: unset !important; 
-        max-height: unset !important;
-    }
-
-    .dt-row {
-        position: relative !important;
-        top: auto !important;
-    }
-    
-    .dt-instance-1 .dt-cell, .datatable .dt-row{
-        height: unset !important;
-    }
-    
-    .list-row-head:hover:not(.list-row-head), .list-row:hover:not(.list-row-head) {
-        background-color: unset !important;
-    }
-    
-    .dt-instance-1 .dt-cell--header{
-        text-align:center !important;
-    }
-    
-    .layout-main-section .report-wrapper {
-        padding: unset !important;
-    }
-        
-    .dt-cell__content {
-        padding: unset !important;
-        padding: unset !important;
-        border: unset !important;
-        border: unset !important;
-        height: 100% !important;
-        text-overflow: unset !important;
-        /*white-space: unset !important;*/
-        overflow: unset !important;
-    }
-    
-    .dt-cell__content > div{
-        height: 100% !important;
-        padding: 5px;
-        text-align: left;
-    }
-    
-    .dt-row-header .dt-cell__content{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold !important;
-    }
-    
-    .dt-cell.dt-cell--col-39, .dt-cell.dt-cell--col-38, .dt-cell.dt-cell--col-37{
-        display: none !important;
-    }
-        
-    /* Work Order list */
-
-    div.Inprogress{
-        background: #6cc56f;
-        background-color: #6cc56f;
-    }
-    
-    div.Complete{
-        background: #008000 !important;
-        background-color: #008000 !important;
-    }
-    
-    div.Open{
-        background: #dcdcdc;
-        background-color: #dcdcdc;
-    }
-
-    div.JO-Issue{
-        background: #ffc107;
-        background-color: #ffc107;
-    }
-    
-    div.Overdue{
-        background: #db8585;
-        background-color: #db8585;
-    }   
-    
-    div.Overdue.JO-Issue.Inprogress{
-        background: #ffc107 !important;
-        background-color: #ffc107 !important;
-    }
-    
-    div.Overdue.JO-Issue.Completed{
-        background: #008000 !important;
-        background-color: #008000 !important;
-    }    
-    
-    div.Overdue.JO-Issue{
-        background: #ffc107 !important;
-        background-color: #ffc107 !important;
-    }    
-    
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:nth-child(3),
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:nth-child(10),
-    .frappe-list .result .list-row-container .level.list-row .level-left.ellipsis div:last-child,
-    .frappe-list .result header .list-header-subject div:nth-child(3),
-    .frappe-list .result header .list-header-subject div:nth-child(10),
-    .frappe-list .result header .list-header-subject div:last-child,
-    .list-row-like, .list-liked-by-me{
-        display: none;
-    }
-    
-    input[type=checkbox]:checked {
-        background-size: 100%;
-        background-repeat: no-repeat;
-    }
-    
-    input[type="checkbox"]{
-        background: #fff;
-        transform: scale(1.3);
-    }
-    
-    .priority{
-        box-shadow: 10px 0px 0px #06c inset;
-    }
-
-    .list-row:hover{
-        background-color: unset !important;
-        text-decoration: underline;
-        cursor: pointer;
-    }
-    
-    .div.menu-btn-group, .level-right{
-        display: none;
-    }
-    
-    input.list-check-all, 
-    .list-liked-by-me{
-        pointer-events: none;
-        opacity: 0
-    }
-    
-    div[data-fieldname="production_item"], 
-    div[data-fieldname="name"]{
-        pointer-events: none;
-        display: none !important;
-    }
-
-`;
-
 let empty = (data) => {
     data = ((typeof data === 'object') && data != null) ? (data.length) : ((data === 'undefined') ? undefined : data); 
     let toCheck = ["", null, undefined, "undefined", 0];
@@ -319,13 +7,13 @@ let empty = (data) => {
 }
 
 let isLogged = sessionStorage.getItem('isLogged');
+let role = frappe.user_roles;
 
-let redirectUser = () => {
+let redirect_user = () => {
     let isLoaded = $('script').on('load');
-    let role = frappe.user_roles;
 
     let recursion = setTimeout( () => {
-        redirectUser();
+        redirect_user();
     }, 100)
     
     if(!empty(isLoaded.length) && !empty(role)){
@@ -355,20 +43,75 @@ let redirectUser = () => {
     return 0;
 }
 
+let toggle_notification_icon = (seen) => {
+    $('.dropdown-notifications .notifications-icon').find(".notifications-seen").toggle(seen);
+    $('.dropdown-notifications .notifications-icon').find(".notifications-unseen").toggle(!seen);
+}
+
+let append_item_to_notification = (data) => {
+    // get the unread items that are already in the notification
+    let unread = [];
+    $('.panel-notifications > div a.unread').map( (key,item) => {unread = [...unread, +item.dataset.name]} )
+
+    // loop the unread items to generate html that can be appended in the list
+    data.map( (item) => {
+        let {creation, document_name, document_type, from_user, name, read, subject} = item;
+
+        // the system will halt if all items are in the notification list
+        if(unread.includes(name))
+            return;
+        
+        let doc_link = frappe.utils.get_form_link(document_type, document_name),
+            read_class = read ? "" : "unread",
+            message = subject,
+            title = message.match(/<b class="subject-title">(.*?)<\/b>/),
+            user_avatar = frappe.avatar(from_user, "avatar-medium user-avatar"),
+            timestamp = frappe.datetime.comment_when(creation);
+
+        message = title ? message.replace(title[1], frappe.ellipsis(strip_html(title[1]), 100)) : message;
+
+        let message_html = `<div class="message">
+                                <div>${message}</div>
+                                <div class="notification-timestamp text-muted">
+                                    ${timestamp}
+                                </div>
+                            </div>`;
+
+        let item_html = $(`<a class="recent-item notification-item unread" href="${doc_link}" data-name="${name}" >
+                            <div class="notification-body">
+                                ${user_avatar}
+                                ${message_html}
+                            </div>
+                        </a>`);
+
+        $(item_html).prependTo($('.panel-notifications > div'));    
+    } )
+}
+
 let check_notification = async() => {
-    let notification = await frappe.call({method: "check_notification", args: {user: frappe.session.user}, callback: (response) => { return response } });
+    let notification = await frappe.call({method: "check_notification", args: {user: frappe.session.user}, callback: (response) => { return response.message.message } });
+    notification = notification.message;
 
     console.log(notification)
+    if(notification.length){
+        toggle_notification_icon(false);
+        append_item_to_notification(notification)
+    }
+    else{
+        toggle_notification_icon(true);
+    }
+
+    let timer = setTimeout( () => {
+        check_notification()
+    }, 1000 );
 }
 
 $(document).ready( () => { 
+    let {excluded_roles, roles} = {excluded_roles: ['Operator'], roles: frappe.user_roles}
 
-    // append custom css
-    if (!$("head style:first-child").html().includes('ESCO Custom Style'))
-        $("head style:first-child").append(style);
-
-    redirectUser();
-
-    check_notification()
+    redirect_user();
+    
+    if(!excluded_roles.some(item => roles?.includes(item)))
+        check_notification()
 } )
 
