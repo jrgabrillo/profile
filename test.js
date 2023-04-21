@@ -310,7 +310,6 @@ let style = `
         display: none !important;
     }
 
-
 `;
 
 let empty = (data) => {
@@ -319,13 +318,12 @@ let empty = (data) => {
     return (toCheck.indexOf(data) >= 0);
 }
 
-$("head style").append(style);
-
-console.log(frappe);
+if (!$("head style:first-child").html().includes('ESCO Custom Style'))
+    $("head style:first-child").append(style);
 
 let isLogged = sessionStorage.getItem('isLogged');
 
-redirectUser = () => {
+let redirectUser = () => {
     let isLoaded = $('script').on('load');
     let role = frappe.user_roles;
 
@@ -342,7 +340,6 @@ redirectUser = () => {
         clearTimeout(recursion);
 
         // checks user's role and last login time. if it is less than 5 seconds, the system will redirect you.
-
         if(empty(isLogged) && !role.includes("Administrator")){
             if(role.includes('Plant Manager') && empty(url.match(/\/Production(.*)Table/gi))){
                 window.location = '/app/query-report/Production%20Table';
@@ -361,4 +358,14 @@ redirectUser = () => {
     return 0;
 }
 
-redirectUser();
+let check_notification = async() => {
+    let notification = await frappe.call({method: "check_notification", args: {user: frappe.session.user}, callback: (response) => { return response } });
+
+    console.log(notification)
+}
+
+$(document).ready( () => { 
+    redirectUser();
+    check_notification()
+} )
+
